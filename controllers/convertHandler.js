@@ -12,7 +12,7 @@ function ConvertHandler() {
   const units = [['gal', 'l'],['l', 'gal'],
                    ['lbs', 'kg'],['kg', 'lbs'], 
                    ['mi', 'km'],['km', 'mi']];
-  const spellUnits = [['gal', 'gallons'],['l', 'litters'],
+  const spellUnits = [['gal', 'gallons'],['l', 'liters'],
                    ['lbs', 'pounds'],['kg', 'kilograms'], 
                    ['mi', 'miles'],['km', 'kilometers']];
   const nums = [3.78541, 1/3.78541, 0.453592, 1/0.453592, 1.60934, 1/1.60934];
@@ -31,7 +31,13 @@ function ConvertHandler() {
   };
   
   this.getUnit = function(input) {
-    return input.slice(input.indexOf(input.match(/[a-zA-Z]/)));
+    const inputUnit = input.slice(input.indexOf(input.match(/[a-zA-Z]/)));
+    for (let i = 0; i < units.length; i ++) {
+      if (inputUnit.toLowerCase() === units[i][0]) {
+        return inputUnit;
+      }
+    }
+    return "invalid unit";
   };
   
   this.getReturnUnit = function(initUnit) {
@@ -40,7 +46,6 @@ function ConvertHandler() {
         return units[i][1];
       }
     }
-    return "invalid unit";
     
   };
 
